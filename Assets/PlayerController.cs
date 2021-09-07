@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float Speed = 20f;
+    public float Speed = 20f; //speed value of mouse movement
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +36,18 @@ public class PlayerController : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0); //if no arrow pressed, stop
         }
-        
-        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Speed * Time.deltaTime);
 
-        
+        //Next section based on a tutorial followed on youtube (https://www.youtube.com/watch?v=mKLp-2iseDc&ab_channel=KristerCederlund)
+        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position; //sets direction to the mouse position
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; //determines angle of object based on mouse position
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward); //stores rotationbased on the angle of the object
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Speed * Time.deltaTime); //changes player rotation based on mouse position
+        //End of tutorial-based code
+
+        if (Input.GetKey(KeyCode.R)) //if r is pressed
+        {
+            SceneManager.LoadScene("SampleScene"); //reload level
+        }
+
     }
 }

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    public GameObject blast; //allows us to set object for blast
-    private Vector2 myLocation; //makes Vector 2 for blast position
-                                // Start is called before the first frame update
+    public GameObject bullet; //makes slot for bullet prefab
+    private Vector2 myLocation; //makes Vector 2 for bullet position
+                                
 
-    public Quaternion blastRot; // Saves the transform.rotation to a variable
+    public Quaternion shootRot; // Saves the transform.rotation to a variable
 
+
+    // Start is called before the first frame update
     void Start()
     {
 
@@ -24,13 +26,13 @@ public class Shoot : MonoBehaviour
         var dir = Input.mousePosition - objectPos;
 
 
-        blastRot = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
+        shootRot = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg));
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        { //if space button is press
-            myLocation = gameObject.transform.position; //sets blast location at player position
+        if (Input.GetKeyDown(KeyCode.Mouse0)) //if left mouse is pressed
+        { 
+            myLocation = gameObject.transform.position; //sets myLocation to player position
 
-            Instantiate(blast, new Vector2(myLocation.x, myLocation.y), blastRot); //makes new blast in blastRot direction
+            Instantiate(bullet, new Vector2(myLocation.x, myLocation.y), shootRot); //makes new bullet at player location
         }
     }
 }
