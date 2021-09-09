@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.R)) //if r is pressed
         {
-            SceneManager.LoadScene("SampleScene"); //reload level
+            SceneManager.LoadScene("SlowBullets"); //reload level
         }
 
     }
